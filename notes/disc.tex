@@ -1,0 +1,91 @@
+\documentclass{amsart}
+\usepackage{hyperref}
+\usepackage{fullpage}
+\usepackage{amsrefs}
+
+\input xypic
+\newdir{ >}{{}*!/-9pt/\dir{>}}
+
+\renewcommand{\:}{\colon}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{conjecture}[theorem]{Conjecture}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{construction}[theorem]{Construction}
+
+\newtheorem{notation}{Notation}
+\renewcommand{\thenotation}{} % make the notation environment unnumbered
+
+%\numberwithin{equation}{subsection}
+
+\begin{document}
+\title{Resultants and discriminants}
+\author{N.~P.~Strickland}
+
+\maketitle 
+
+Let $K$ be a commutative ring, and write $K[x]_{\leq n}$ for the set
+of polynomials over $K$ of degree at most $n$.  We will consider $K^m$
+to be the set of column vectors of length $m$ over $K$.  We let 
+$\kp\:K[x]_{\leq n}\to K^{n+1}$ be the obvious isomorphism, given by 
+\[ \kp(\sum_{i=0}^na_ix^i) = [a_0,\dotsc,a_n]^T. \]
+
+Now consider polynomials $f(x)\in K[x]_{\leq n}$ and 
+$g(x)\in K[x]_{\leq m}$.  We define an $(n+m)\tm(n+m)$ matrix
+$S(f(x),g(x))$ (called the \emph{Sylvester matrix}) as follows: the
+first $m$ columns are
+$\kp(f(x)),\kp(x\,f(x)),\dotsc,\kp(x^{m-1}f(x))$, and the remaining
+$n$ columns are $\kp(g(x)),\dotsc,\kp(x^{n-1}g(x))$.  For example, if
+$n=2$ and $m=3$ and
+\begin{align*}
+ f(x) &= a+bx+cx^2 \\
+ g(x) &= p+qx+rx^2+sx^3 
+\end{align*}
+then
+\[ S(f(x),g(x)) =
+   \left[\begin{array}{ccc|cc}
+    a & 0 & 0 & p & 0 \\
+    b & a & 0 & q & p \\
+    c & b & a & r & q \\
+    0 & c & b & s & r \\
+    0 & 0 & c & 0 & s
+   \end{array}\right].
+\]
+We then define $R(f(x),g(x))\in K$ to be the determinant of this
+matrix.  This is called the \emph{resultant} of $f(x)$ and $g(x)$.  We
+also define the \emph{discriminant} of $f(x)$ to be the element
+\[ \Dl(f(x)) = (-1)^{(n^2-n)/2} R(f'(x),f(x)) \in K. \]
+
+The main reason why these constructions are interesting is as follows:
+\begin{theorem}\label{thm-resultant}
+ Suppose that $f(x)=\prod_{i=1}^n(x-\al_i)$ and
+ $g(x)=\prod_{j=1}^m(x-\bt_j)$.  Then 
+ \begin{align*}
+  R(f(x),g(x)) &=
+   \prod_{i=1}^n\prod_{j=1}^m(\al_i-\bt_j) = 
+   \prod_{i=1}^ng(\al_i) = (-1)^{nm}\prod_{j=1}^m f(\bt_j) \\
+  \Dl(f(x)) &= (-1)^{(n^2-n)/2}\prod_{i\neq j}(\al_i-\al_j)
+    = \prod_{i<j}(\al_i-\al_j)^2.
+ \end{align*}
+\end{theorem}
+
+This will be proved after some preliminary results.
+
+
+
+\begin{bibdiv}
+\begin{biblist}
+\bibselect{%
+../../BiBTeX/refs,%
+../../BiBTeX/myrefs%
+}
+\end{biblist}
+\end{bibdiv}
+
+\end{document}

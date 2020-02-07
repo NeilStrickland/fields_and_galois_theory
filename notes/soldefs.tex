@@ -1,0 +1,113 @@
+\newwrite\solsfile
+\immediate\openout\solsfile=solutions.tex
+
+\newcommand{\includesolutions}{
+ \immediate\closeout\solsfile
+ \input{solutions.tex}
+}
+
+\makeatletter
+
+% \lastexlabel stores the label of the last exercise
+\newcommand{\lastexlabel}{}
+
+% \exlabel sets \lastexlabel and generates a LaTeX label
+\ifshowkeys
+\newcommand{\exlabel}[1]{
+ \global\def\lastexlabel{#1}\label{#1}[\texttt{#1}]\ \\
+}
+\else
+\newcommand{\exlabel}[1]{
+ \global\def\lastexlabel{#1}\label{#1}
+}
+\fi
+
+% \exref generates a link to the exercise with the specified
+% label
+\newcommand{\exref}[1]{Exercise~\ref*{#1}}
+
+
+% An environment for a solution that is included inline.
+\newenvironment{SolutionInline}{{\noindent \bf Solution:}}{}
+
+% An environment that records a solution for inclusion in an
+% appendix, and generates a link to that solution.
+\newenvironment{SolutionAtEnd}
+ {\ifscreen\noindent\hyperlink{sol_\lastexlabel}{Solution}%
+  \fi
+  \immediate\write\solsfile{}
+  \immediate\write\solsfile{%
+   \string\BeginDeferredSolution{\lastexlabel}{\theexercise}}
+  \@bsphack
+  \let\do\@makeother\dospecials\catcode`\^^M\active
+  \def\verbatim@processline{%
+   \immediate\write\solsfile{\the\verbatim@line}}%
+ \verbatim@start}%
+{\immediate\write\solsfile{\string\EndDeferredSolution}\@esphack\par\vspace{2ex}}
+
+% An environment for a solution that has been hidden in an appendix
+\newcommand{\BeginDeferredSolution}[2]{%
+ \ifscreen\newpage\else\par\fi
+ \def\exanchor{#1}
+ \label{sol_#1}{\noindent\bf Exercise #2:}
+}
+
+\newcommand{\EndDeferredSolution}{\par\noindent\bigskip}
+
+% An environment that hides a solution, with a promise that
+% it will be revealed later.
+\newenvironment{SolutionLater}
+ {\noindent{\bf \ORANGE{(A solution will be given later.)}}
+  \@bsphack
+  \let\do\@makeother\dospecials\catcode`\^^M\active
+  \def\verbatim@processline{}%
+ \verbatim@start}%
+{\@esphack\par\vspace{2ex}}
+
+% An environment that makes a solution completely invisible.
+\newenvironment{SolutionHidden}
+ {\@bsphack
+  \let\do\@makeother\dospecials\catcode`\^^M\active
+  \def\verbatim@processline{}%
+ \verbatim@start}%
+{\@esphack\par\vspace{2ex}}
+
+\newenvironment{solution}{\SolutionInline}{\endSolutionInline}
+
+\newcommand{\exsolinline}[1]{\input{problems/#1}}
+
+\newcommand{\exsolatend}[1]{
+ \renewenvironment{solution}{\SolutionAtEnd}{\endSolutionAtEnd}
+ \renewenvironment{background}{\BackgroundWithSolution}{\endBackgroundWithSolution}
+ \input{problems/#1}
+ \renewenvironment{solution}{\SolutionInline}{\endSolutionInline}
+ \renewenvironment{background}{\BackgroundInline}{\endBackgroundInline}
+}
+
+\ifshowall
+\newcommand{\exsollater}[1]{
+ \renewenvironment{solution}{\SolutionAtEnd}{\endSolutionAtEnd}
+ \renewenvironment{background}{\BackgroundWithSolution}{\endBackgroundWithSolution}
+ \input{problems/#1}
+ \renewenvironment{solution}{\SolutionInline}{\endSolutionInline}
+ \renewenvironment{background}{\BackgroundInline}{\endBackgroundInline}
+}
+\else
+\newcommand{\exsollater}[1]{
+ \renewenvironment{solution}{\SolutionLater}{\endSolutionLater}
+ \renewenvironment{background}{\BackgroundHidden}{\endBackgroundHidden}
+ \input{problems/#1}
+ \renewenvironment{solution}{\SolutionInline}{\endSolutionInline}
+ \renewenvironment{background}{\BackgroundInline}{\endBackgroundInline}
+}
+\fi
+
+\newcommand{\exsolhidden}[1]{
+ \renewenvironment{solution}{\SolutionHidden}{\endSolutionHidden}
+ \renewenvironment{background}{\BackgroundHidden}{\endBackgroundHidden}
+ \input{problems/#1}
+ \renewenvironment{solution}{\SolutionInline}{\endSolutionInline}
+ \renewenvironment{background}{\BackgroundInline}{\endBackgroundInline}
+}
+
+\makeatother

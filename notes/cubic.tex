@@ -1,0 +1,172 @@
+\documentclass{amsart}
+\usepackage{hyperref}
+\usepackage{fullpage}
+\usepackage{amsrefs}
+
+\usepackage[matrix,arrow]{xy}
+\usepackage{xypdf}
+\newdir{ >}{{}*!/-9pt/\dir{>}}
+
+\newcommand{\al}        {\alpha}
+\newcommand{\dl}        {\delta}
+\newcommand{\tht}       {\theta}
+\newcommand{\om}        {\omega}
+\newcommand{\omb}	{\overline{\omega}}
+
+\newcommand{\Dl}        {\Delta}
+
+\renewcommand{\:}{\colon}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{conjecture}[theorem]{Conjecture}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{construction}[theorem]{Construction}
+
+\newtheorem{notation}{Notation}
+\renewcommand{\thenotation}{} % make the notation environment unnumbered
+
+%\numberwithin{equation}{subsection}
+
+\begin{document}
+\title{Cubics}
+\author{N.~P.~Strickland}
+
+\maketitle 
+
+Consider a cubic $f(x)=x^3+bx+c$ with $b\neq 0$.  Put
+$\Dl=-4b^3-27c^2$.  
+
+\begin{proposition}\label{prop-discriminant}
+ We have $\Dl=0$ iff $f(x)$ has a repeated root.  In particular, if
+ $f(x)$ is irreducible then $\Dl\neq 0$.
+\end{proposition}
+\begin{proof}
+ First, suppose that $\Dl=0$, so $27c^2=-4b^3$.  Put $\al=-(3c)/(2b)$,
+ and note that 
+ \begin{align*}
+  \al^2 &= \frac{9c^2}{4b^2}= \frac{27c^2/3}{4b^2}
+         = \frac{-4b^3/3}{4b^2} = -b/3 \\
+  \al^3 &= \frac{-27c^3}{8b^3} = \frac{4b^3c}{8b^3} = c/2 \\  
+  (x-\al)^2(x+2\al) &= (x^2-2\al x+\al^2)(x+2\al) \\
+    &= x^3 - 3\al^2 x + 2\al^3 = x^3+bx+c = f(x),
+ \end{align*}
+ so $f(x)$ has a repeated root at $\al$.  
+
+ For the converse, one can just expand everything out to check that 
+ \[ (18bx-27c)f(x)+(9xc-4b^2-6bx^2)f'(x) = \Dl. \]
+ In particular, the left hand side is actually a constant, independent
+ of $x$.  If $f(x)$ has a repeated root at $\al$ then
+ $f(\al)=f'(\al)=0$ so we can substitute $x=\al$ in the above to
+ get $0=\Dl$. 
+\end{proof}
+
+From now on we assume that $f(x)$ has no repeated roots, so 
+$\Dl\neq 0$.  We put $\dl=\sqrt{\Dl}$.  For definiteness, if 
+$\Dl\geq 0$ we take $\dl$ to be the nonnegative square root of $\Dl$,
+and if $\Dl<0$ then we take $\dl$ to be the square root of $\Dl$ lying
+in the upper half-plane.  Next, we put
+\begin{align*}
+ m &= (-27c + \sqrt{-27}\dl)/2 \\
+ n &= (-27c - \sqrt{-27}\dl)/2,
+\end{align*}
+so 
+\begin{align*}
+ m+n &= -27c \\
+ m-n &= \sqrt{-27}\dl \\
+ mn &= \tfrac{1}{4}((-27c)^2-(\sqrt{-27}\dl)^2) 
+     = \tfrac{1}{4}(27^2c^2+27(-4b^3-27c^2)) \\
+    &= -27b^3 = (-3b)^3.  
+\end{align*}
+As $mn=-b^3$ and $b\neq 0$ we have $m,n\neq 0$.
+
+Now let $\mu_0$ be one of the cube roots of $m$.  For definiteness, we
+can take $\mu_0$ be the unique cube root of $m$ that can be written as
+$\mu_0=re^{i\tht}$ with $0\leq\tht<2\pi/3$.  As $m\neq 0$ we also have
+$\mu_0\neq 0$.
+
+Now put 
+\[ \om = e^{2\pi i/3} = \cos(2\pi/3) + i\sin(2\pi/3) =
+     \frac{\sqrt{3}i-1}{2},
+\]
+and note that $\om^3=1$ and 
+\[ \om^2 = \omb = 1/\om = -1-\om = e^{-2\pi i/3} =
+     \frac{-\sqrt{3}i-1}{2}.
+\]
+The other two cube roots of $m$ are then $\mu_1=\om\mu_0$ and
+$\mu_2=\omb\mu_0$.  We put 
+\begin{align*}
+ \nu_0 &= -3b/\mu_0 \\
+ \nu_1 &= -3b/\mu_1 = \omb\nu_0 \\
+ \nu_2 &= -3b/\mu_0 = \om\nu_0.
+\end{align*}
+As $\mu_k^3=m$ and $(-3b)^3=mn$ and $b\neq 0$ we find that
+$\nu_k^3=n$ and $\nu_k\neq 0$.  We now put 
+$\al_k=(\mu_k+\nu_k)/3$.  The binomial expansion gives
+\[
+ \al_k^3 = \tfrac{1}{27}
+    (\mu_k^3 + 3\mu_k(\mu_k\nu_k) + 3\nu_k(\mu_k\nu_k) + \nu_k^3).
+\]
+Here $\mu_k^3=m$ and $\nu_k^3=n$, so $\mu_k^3+\nu_k^3=m+n=-27c$.  On
+the other hand, we have $\mu_k\nu_k=-3b$ by the definition of
+$\nu_k$.  This means that
+\begin{align*}
+ \al_k^3 &= \tfrac{1}{27} (m - 9b\mu_k -9b\nu_k + n) \\
+  &= \tfrac{1}{27}(-27c - 27b \frac{\mu_k+\nu_k}{3}) \\
+  &= -c-b\al_k,
+\end{align*}
+so $f(\al_k)=\al_k^3+b\al_k+c=0$.  We thus have three roots of $f(x)$
+which appear to be different, but we need to check that there is not
+some hidden reason why they could be the same.  This will follow from
+the formula below.
+
+\begin{proposition}\label{prop-vandermonde}
+ With $\dl$ and $\al_k$ defined as above, we have 
+ \[ \dl = (\al_0-\al_1)(\al_0-\al_2)(\al_2-\al_1). \]
+\end{proposition}
+\begin{proof}
+ First, from the definition of the numbers $\al_k$ and some easy
+ manipulation we have 
+ \begin{align*}
+  3(\al_0-\al_1) &= \mu_0+\nu_0-\om\mu_0-\omb\nu_0 
+                  = (1-\om)(\mu_0-\omb\nu_0) \tag{A} \\
+  3(\al_0-\al_2) &= \mu_0+\nu_0-\omb\mu_0-\om\nu_0 
+                  = (1-\omb)(\mu_0-\om\nu_0) \tag{B} \\
+  3(\al_2-\al_1) &= \omb\mu_0+\om\nu_0-\om\mu_0-\om\nu_0 
+                  = (\omb-\om)(\mu_0-\nu_0) \tag{D}
+ \end{align*}
+ We now want to multiply these together.  On the one hand, by fairly
+ direct expansion we see that
+ \[ (1-\om)(1-\omb)(\omb-\om) = -3\sqrt{3}i = -\sqrt{-27}. \tag{E} \]
+ On the other hand, as the roots of $x^3-1$ are $1$, $\om$ and $\omb$
+ we have 
+ \[ (x-\omb)(x-\om)(x-1) = x^3-1. \]
+ We saw earlier that $\nu_0\neq 0$, so it is legitimate to substitute
+ $x=\mu_0/\nu_0$ and then multiply through by $\nu_0^3$ to get
+ \[ (\mu_0-\omb\nu_0)(\mu_0-\om\nu_0)(\mu_0-\nu_0) = 
+      \mu_0^3-\nu_0^3 = m-n = \sqrt{-27}\dl \tag{F}
+ \]
+ If we multiply~(A), (B) and (C), then use~(D) and~(E) to simplify the
+ right hand side, we obtain 
+ \[ 27 (\al_0-\al_1)(\al_0-\al_2)(\al_2-\al_1) = 
+      -\sqrt{-27}\sqrt{-27}\dl = 27\dl.
+ \]
+ After dividing through by $27$, we get the claimed identity.
+\end{proof}
+   
+
+\begin{bibdiv}
+\begin{biblist}
+\bibselect{%
+../../BiBTeX/refs,%
+../../BiBTeX/myrefs%
+}
+\end{biblist}
+\end{bibdiv}
+
+\end{document}

@@ -1,0 +1,46 @@
+\documentclass{amsart}
+\usepackage{hyperref}
+\usepackage{fullpage}
+\usepackage{amsrefs}
+\usepackage{tikz}
+\usetikzlibrary{matrix,arrows,decorations.pathmorphing, cd}
+
+\newcommand{\Q}         {{\mathbb{Q}}}
+\newcommand{\al}        {\alpha}
+\newcommand{\bt}        {\beta} 
+\newcommand{\zt}        {\zeta}
+\renewcommand{\:}{\colon}
+
+\begin{document}
+\title{The field $\Q(\mu_{20})$}
+\author{N.~P.~Strickland}
+
+\maketitle 
+
+Put
+\begin{align*}
+ \zt &= e^{i\pi/5} \\
+ \al &= \sqrt{(5 - \sqrt{5})/2} \\
+ \bt &= \sqrt{(5 + \sqrt{5})/2} \\
+ \tau &= (\sqrt{5}+1)/2.
+\end{align*}
+
+Put $K=\Q(\mu_{20})$, which is the same as $\Q(i,\zt)$.  One can check that
+\begin{align*}
+ \al \bt &= \sqrt{5} & \bt/\al &= \tau \\
+ \bt &= 3\al - \al^3 & \al &= \bt^3 - 3\al \\
+ \zt   &= \frac{5+i\al^3}{5-i\al^3} = \frac{3 - \al^2 + i\al}{2} & 
+ \zt^3 &= \frac{5+i\bt^3}{5-i\bt^3} = \frac{3 - \bt^2 + i\bt}{2} \\
+ \al &= 2\sin(\pi/5) = i(\zt^{-1}-\zt) &
+ \bt &= 2\sin(3\pi/5) = i(\zt^{-3}-\zt^3).
+\end{align*}
+
+We also have the factorization
+\[ t^4 - 5 t^2 + 5 = (t-\al)(t+\al)(t-\bt)(t+\bt). \]
+We now see that the field $L=\Q(\al,\bt)$ is the same as $\Q(\al)$ or
+$\Q(\bt)$ and is a Galois extension of $\Q$ with Galois group $C_4$.
+One can also check that $\al^{-2}+\bt^{-2}=1$, so the cyclic
+permutations of $(0,\pm\al^{-1},\pm\bt^{-1})$ are all unit vectors.
+One can check that they form the vertices of an icosahedron.
+
+\end{document}
